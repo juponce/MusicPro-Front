@@ -8,6 +8,11 @@
     --verda-claro: #7FB069;
 }
 
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
 html {
     padding: 0;
     margin: 0;
@@ -19,7 +24,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: auto;
-    min-height: 100vh;
 }
 
 li {
@@ -28,6 +32,7 @@ li {
 
 header {
     background-color: var(--gris-claro);
+    height: 8.125rem;
 }
 
 .link-logo {
@@ -36,4 +41,29 @@ header {
 
 .img-logo {
     height: 6.25rem;
+}
+
+main {
+    min-height: calc(100% - (9.375rem + 6.25rem));
+}
+
+footer {
+    height: 9.375rem;
+    width: 100%;
+    background-color: var(--gris-claro);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.rrss {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.625rem;
+
+}
+
+.rrss-logo {
+    height: 2rem;
 }

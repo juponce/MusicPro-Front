@@ -20,6 +20,8 @@ from django.conf import settings
 urlpatterns = [
     # Core Paths
     path('', include('core.urls')),
+    # Venta Paths
+    path('venta/', include('venta.urls')),
     # Admin Paths
     path('admin/', admin.site.urls),
 ]
