@@ -1,0 +1,88 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Registro{% endblock %}
+{% block content %}
+<!-- <main role="main">
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-9 mx-auto mb-5">
+                <form action="" method="POST"> {% csrf_token %}
+                    <h3 class="mb-4">Registro</h3>
+                    {{form.username}}
+                    
+                    <p><input type="submit" class="btn btn-primary btn-block" value="Confirmar"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</main> -->
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <!-- Inicio Formulario -->
+        <div class="col-md-5">
+        <div class="contenedorFormulario">
+                <form class="py-4 px-4" action="" method="POST">{% csrf_token %}
+                    <h3 class="tituloForm1">Registrate</h3>
+
+                    <!-- Nombre-Apellido -->
+            <div class="contenedorP1 mb-3 justify-content-between"> 
+                <div class="form1">
+                    <label for="id_first_name">Nombre</label>
+                    <br>
+                    {{ form.first_name }}
+                </div>
+                <div class="form2">
+                    <label for="id_last_name">Apellido</label>
+                    <br>
+                    {{ form.last_name }}
+                </div>
+            </div>
+
+                <!-- Nombre Usuario -->
+            <div class="form3 mb-3">
+                <label for="username">Nombre de Usuario</label>
+                <br>
+                {{ form.username }}
+            </div>
+
+            <!-- Email -->
+            <div class="form3 mb-3">
+                <label for="id_email">Correo electronico</label>
+                <br>
+                {{ form.email }}
+            </div>
+
+                <!-- Contrasena -->
+            <div class="form3 mb-3">
+                <label for="id_password1">Contraseña</label>
+                <br>
+                {{ form.password1 }}
+                </div>
+
+                <!-- Confirmar Contraseña -->
+                <div class="form3 mb-3">
+                    <label for="id_password2">Confirmar Contraseña</label>
+                    <br>
+                    {{ form.password2 }}
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="contCheck">
+                        <p> <input type="checkbox"> Acepto Terminos y Condiciones</p>
+            </div>
+            <!-- Boton Registro -->
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="button1">Registrarse</button>
+            </div>
+            {% if form.non_field_errors %}
+                <p class="error">Datos incorrectos, intentelo denuevo</p>
+            {% endif %}
+        </div>
+
+        </div>              
+        </form>
+        <!-- Fin Formulario -->
+    </div>
+</div>
+{% endblock %}

@@ -43,6 +43,11 @@ header {
     height: 6.25rem;
 }
 
+.nav-container {
+    margin-right: 6.25rem;
+    margin-left: 6.25rem;
+}
+
 main {
     min-height: calc(100% - (9.375rem + 6.25rem));
 }
@@ -61,9 +66,15 @@ footer {
     justify-content: space-between;
     align-items: center;
     gap: 0.625rem;
-
+    padding-bottom: 0.625rem;
 }
 
 .rrss-logo {
     height: 2rem;
+}
+
+/* Productos */
+
+.product-card {
+    width: 18.75rem;
 }
