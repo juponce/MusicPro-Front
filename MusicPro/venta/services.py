@@ -7,7 +7,7 @@ def generate_request(url, params={}):
         return response.json()
 
 def get_product(params={}):
-    response = generate_request('http://home.softsolutions.cl:8080/products', params)
+    response = generate_request('http://home.softsolutions.cl:8080/productos', params)
     if response:
         products = response
         if products:
