@@ -50,6 +50,7 @@ header {
 
 main {
     min-height: calc(100% - (9.375rem + 6.25rem));
+    padding: 4rem;
 }
 
 footer {
@@ -75,6 +76,15 @@ footer {
 
 /* Productos */
 
+
+
 .product-card {
     width: 18.75rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+
+}
+
+.product-card:first-child {
+    padding-left: 0;
 }
