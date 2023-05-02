@@ -1,52 +1,36 @@
-# from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpFormWithEmail
-from django.shortcuts import render
-from django.views.generic import CreateView
-from django.urls import reverse_lazy
+import requests
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 
-# Create your views here.
 
-# class SignUpView(CreateView):
-#     form_class = UserCreationForm
-#     template_name = 'registration/signup.html'
+def signup_view(request):
+    if request.method == 'POST':
+        correo = request.POST.get('correo')
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        contrasena = request.POST.get('contrasena')
+        tipo_cuenta = request.POST.get('tipo_cuenta')
 
-#     def get_success_url(self):
-#         return reverse_lazy('login') + '?register'
-
-class SignUpView(CreateView):
-    form_class = SignUpFormWithEmail
-    template_name = 'registration/signup.html'
-
-    def get_success_url(self):
-        return reverse_lazy('signin') + '?register'
-
-    def form_valid(self, form):
-        name = form.cleaned_data['name']
-        last_name = form.cleaned_data['last_name']
-        username = form.cleaned_data['username']
-        email = form.cleaned_data['email']
-        password = form.cleaned_data['password']
-
+        url = 'http://home.softsolutions.cl:8080/usuario'
         data = {
-            'name': name,
-            'last_name': last_name,
-            'username': username,
-            'email': email,
-            'password': password
+            'correo': correo,
+            'nombre': nombre,
+            'apellido': apellido,
+            'contrasena': contrasena,
+            'tipo_cuenta': tipo_cuenta,
         }
 
-        response = requests.post('https://api.example.com/login', data=data)
+        response = requests.post(url, data=data)
 
         if response.status_code == 200:
-
-            print('Inicio de sesión exitoso en la API')
+            return redirect('signup')
         else:
+            # manejar errores
+            pass
 
-            print('Error al iniciar sesión en la API')
+    return render(request, 'registration/signup.html')
 
-        return super().form_valid(form)
 
-    
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')

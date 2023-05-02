@@ -22,66 +22,33 @@
         <!-- Inicio Formulario -->
         <div class="col-md-5">
         <div class="contenedorFormulario">
-                <form class="py-4 px-4" action="" method="POST">{% csrf_token %}
-                    <h3 class="tituloForm1">Regístrate</h3>
-
-                    <!-- Nombre-Apellido -->
-            <div class="contenedorP1 mb-3 justify-content-between"> 
-                <div class="form1">
-                    <label for="id_first_name">Nombre</label>
-                    <br>
-                    {{ form.first_name }}
+            <form class="py-4 px-4 mb-3 d-flex flex-column justify-content-center align-items-center" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_correo">Correo electrónico:</label>
+                    <input type="text" name="correo" id="id_correo">
                 </div>
-                <div class="form2">
-                    <label for="id_last_name">Apellido</label>
-                    <br>
-                    {{ form.last_name }}
+                <div class="mb-3">
+                    <label for="id_nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="id_nombre">
                 </div>
-            </div>
-
-                <!-- Nombre Usuario -->
-            <div class="form3 mb-3">
-                <label for="username">Nombre de Usuario</label>
-                <br>
-                {{ form.username }}
-            </div>
-
-            <!-- Email -->
-            <div class="form3 mb-3">
-                <label for="id_email">Correo electronico</label>
-                <br>
-                {{ form.email }}
-            </div>
-
-                <!-- Contrasena -->
-            <div class="form3 mb-3">
-                <label for="id_password1">Contraseña</label>
-                <br>
-                {{ form.password1 }}
+                <div class="mb-3">
+                    <label for="id_apellido">Apellido:</label>
+                    <input type="text" name="apellido" id="id_apellido">
                 </div>
-
-                <!-- Confirmar Contraseña -->
-                <div class="form3 mb-3">
-                    <label for="id_password2">Confirmar Contraseña</label>
-                    <br>
-                    {{ form.password2 }}
-                    </div>
-
-                    <!-- Checkbox -->
-                    <div class="contCheck">
-                        <p> <input type="checkbox"> Acepto Terminos y Condiciones</p>
-            </div>
-            <!-- Boton Registro -->
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="button1">Registrarse</button>
-            </div>
-            {% if form.non_field_errors %}
-                <p class="error">Datos incorrectos, intentelo denuevo</p>
-            {% endif %}
-        </div>
-
-        </div>              
-        </form>
+                <div class="mb-3">
+                    <label for="id_contrasena">Contraseña:</label>
+                    <input type="password" name="contrasena" id="id_contrasena">
+                </div>
+                <div class="mb-3">
+                    <label for="id_tipo_cuenta">Tipo de cuenta:</label>
+                    <select name="tipo_cuenta" id="id_tipo_cuenta">
+                        <option value="1">Administrador</option>
+                        <option value="2">Cliente</option>
+                    </select>
+                </div>
+                <button type="submit">Iniciar sesión</button>
+            </form>
         <!-- Fin Formulario -->
     </div>
 </div>

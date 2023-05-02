@@ -23,7 +23,7 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: auto;
+    height: auto;
 }
 
 li {
