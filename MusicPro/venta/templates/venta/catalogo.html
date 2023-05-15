@@ -15,7 +15,15 @@ Catalogo
       <div class="card-body">
         <h5 class="card-title">{{ i.nombre }}</h5>
         <p class="card-text">${{ i.precio }}</p>
-        <a href="#" class="btn btn-primary">Agregar</a>
+        <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="product_id" value="{{ i.id_producto }}">
+          <input type="hidden" name="producto" value="{{ i.nombre }}">
+          <input type="hidden" name="carrito_id" value="{{ carrito.id }}">
+          <input type="hidden" name="cantidad" value="1">
+          <input type="hidden" name="precio" value="{{ i.precio }}">
+          <button type="submit" class="btn btn-primary">Agregar</button>
+      </form>
       </div>
   </div>
 

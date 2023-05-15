@@ -16,7 +16,11 @@ Catalogo
         <h5 class="card-title">{{ i.nombre }}</h5>
         <p class="card-text">${{ i.precio }}</p>
         <a href="#" class="btn btn-primary">Modificar</a>
-        <a href="#" class="btn btn-primary">eliminar</a>
+        <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="product_id" value="{{ i.id_producto }}">
+          <button type="submit" class="btn btn-primary">Eliminar</button>
+      </form>
       </div>
   </div>
 

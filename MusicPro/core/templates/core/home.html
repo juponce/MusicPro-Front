@@ -7,4 +7,9 @@ Principal
 {% block content %}
 <!-- Cabecera -->
 {% load static %}
+{% if user.is_authenticated %}
+<h2>Bienvenido</h2>
+{% else %}
+<h2>Inicie sesión o cree una cuenta nueva para comprar</h2>
+{% endif %}
 {% endblock %}
