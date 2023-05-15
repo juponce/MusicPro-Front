@@ -1,6 +1,10 @@
 import requests
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
+from .services import *
+from django.contrib.auth import authenticate, login
+from .forms import *
+from django.contrib import messages
 
 
 def signup_view(request):
@@ -31,22 +35,39 @@ def signup_view(request):
     return render(request, 'registration/signup.html')
 
 
+# def login_view(request):
+#     user = get_users()
+#     if request.method == 'POST':
+#         correo  = request.POST.get('email')
+#         contrasena = request.POST.get('password')
+
+#         for i in user:
+#             if email == i.get('correo') and password == i.get('contrasena'):
+#                 user_login = authenticate(request, username=i.get('nombre'), password=i.get('contrasena'))
+
+#                 if user is not None:
+#                     login(request, user_login)
+#                     return redirect('home')
+#             else:
+#                 print(i.get('correo'))
+#                 print(email)
+#                 print(i.get('contrasena'))
+#                 print("NOOOO")
+
+#     return render(request, 'registration/login.html')
+
 def login_view(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-
-        data = {
-            'email': email,
-            'password': password
-        }
-        response = requests.post('https://api.example.com/login', data=data)
-
-        if response.status_code == 200:
-    
-            print('Inicio de sesión exitoso en la API')
+        correo = request.POST['email']
+        contrasena = request.POST['password']
+        
+        if verificar_credenciales(correo, contrasena):
+            crear_usuario(correo, contrasena)
+            messages.success(request, 'Usuario creado correctamente.')
+            user = authenticate(username=correo, password=contrasena)
+            login(request, user)
+            return redirect('home')
         else:
-    
-            print('Error al iniciar sesión en la API')
+            messages.error(request, 'Credenciales inválidas.')
 
     return render(request, 'registration/login.html')

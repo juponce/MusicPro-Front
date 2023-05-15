@@ -39,6 +39,9 @@
                                     >Inicio</a
                                 >
                             </li>
+                            
+
+                            {% if user.is_authenticated %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'catalogo' %}">Catalogo</a>
                             </li>
@@ -49,27 +52,41 @@
                                     role="button"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false">
-                                    Cuenta
+                                    {{ user.username }}
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" href="{% url 'signin' %}"
-                                            >Iniciar Sesión</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{% url 'signup' %}"
-                                            >Crear cuenta</a
-                                        >
-                                    </li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li>
-                                        <a class="dropdown-item" href="#"
+                                        <a class="dropdown-item" href="{% url 'logout' %}"
                                             >Cerrar Sesión</a
                                         >
                                     </li>
+                                </li>
+                                {% else %}
+                                <li class="nav-item dropdown">
+                                    <a
+                                        class="nav-link dropdown-toggle"
+                                        href="#"
+                                        role="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Cuenta
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'signin' %}"
+                                                >Iniciar Sesión</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'signup' %}"
+                                                >Crear cuenta</a
+                                            >
+                                        </li>
+                                    </li>
+                                
+                                    {% endif %}
                                 </ul>
-
+                                {% if user.is_authenticated %}
                                 {% if user.is_superuser %}
                                 <li class="nav-item dropdown">
                                     <a
@@ -82,10 +99,10 @@
                                     </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" href="{% url 'carrito' %}">Añadir</a>
+                                        <a class="dropdown-item" href="{% url 'anadir_producto' %}">Añadir</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="{% url 'signup' %}"
+                                        <a class="dropdown-item" href="{% url 'modificar_productos' %}"
                                             >Ver lista</a
                                         >
                                     </li>
@@ -94,6 +111,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
                                 </li>
+                                {% endif %}
                                 {% endif %}
                             </li>
                         </ul>
@@ -113,6 +131,9 @@
                 <a href=""><img src="{% static 'core/img/logotipo-de-instagram.png' %}" alt="" class="rrss-logo"></a>
             </div>
         </footer>
+        <script src="https://kit.fontawesome.com/ab252321e7.js" crossorigin="anonymous"></script>
+        <script src="{% static 'js/fontawsome.js' %}"></script>
+
         <script src="{% static 'core/js/bootstrap.bundle.min.js' %}"></script>
         <script src="{% static 'core/js/scripts.js' %}"></script>
     </body>

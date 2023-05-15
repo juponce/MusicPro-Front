@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Catalogo
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <!-- Inicio Formulario -->
+        <div class="col-md-5">
+        <div class="contenedorFormulario">
+            <form class="py-4 px-4 mb-3 d-flex flex-column justify-content-center align-items-center" method="post">
+                {% csrf_token %}
+                <h3>Añadir stock</h3>
+                <div class="mb-3">
+                    <label for="bodega">Bodega:</label>
+                    <select name="bodega" id="id_bodega">
+                        {% for i in bodegas %}
+                        <option value="1">{{ i.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="id_nombreProducto">Stock:</label>
+                    <input type="number" name="stock" id="id_nombreProducto">
+                </div>
+                <button type="submit">Añadir</button>
+            </form>
+
+        <!-- Fin Formulario -->
+    </div>
+</div>
+{% endblock %}

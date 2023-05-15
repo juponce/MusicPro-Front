@@ -16,29 +16,23 @@ Producto
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="id_nombreProducto">Nombre producto:</label>
-                    <input type="text" name="nombreProducto" id="id_nombreProducto">
+                    <input type="text" name="nombre" id="id_nombreProducto">
                 </div>
                 <div class="mb-3">
                     <label for="id_nombre">Descripción:</label>
                     <textarea name="descripcion" id="" cols="30" rows="10"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="id_apellido">Apellido:</label>
-                    <input type="text" name="apellido" id="id_apellido">
+                    <label for="id_apellido">Precio:</label>
+                    <input type="text" name="precio" id="id_apellido">
                 </div>
                 <div class="mb-3">
-                    <label for="id_contrasena">Contraseña:</label>
-                    <input type="password" name="contrasena" id="id_contrasena">
+                    <label for="id_contrasena">Imagen:</label>
+                    <input type="text" name="imagen" id="id_contrasena">
                 </div>
-                <div class="mb-3">
-                    <label for="id_tipo_cuenta">Tipo de cuenta:</label>
-                    <select name="tipo_cuenta" id="id_tipo_cuenta">
-                        <option value="1">Administrador</option>
-                        <option value="2">Cliente</option>
-                    </select>
-                </div>
-                <button type="submit">Registrar</button>
+                <button id="modal-button" type="submit">Añadir</button>
             </form>
+
         <!-- Fin Formulario -->
     </div>
 </div>

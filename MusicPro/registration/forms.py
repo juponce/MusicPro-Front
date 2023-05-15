@@ -1,35 +1,32 @@
 from django import forms
-from django.views.generic.edit import FormView
-# from django.contrib.auth.forms import UserCreationForm
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
+from .services import *
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import Group
 
-# tipo_cuenta_choices = (
-#     ("1", "cliente"),
-#     ("2", "admin"),
-# )
+def crear_usuario(correo, contrasena):
+    tipo_cuenta = obtener_tipo_cuenta(correo)
 
-# class SignUpFormWithEmail(UserCreationForm):
-#     first_name = forms.CharField(max_length=30, required=True)
-#     last_name = forms.CharField(max_length=30, required=True)
-#     email = forms.EmailField(max_length=254)
-#     tipo_cuenta = forms.ChoiceField(choices = tipo_cuenta_choices)
+    if tipo_cuenta:
+        # Utiliza el correo electrónico como nombre de usuario
+        username = correo
 
-#     class Meta:
-#         model = User
-#         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'tipo_cuenta')
+        # Verifica si el usuario ya existe en Django
+        if User.objects.filter(username=username).exists():
+            return False
 
-#     def clean_email(self):
-#         email = self.cleaned_data.get('email')
-#         if User.objects.filter(email=email).exists():
-#             raise forms.ValidationError("El email ya está registrado, prueba con otro.")
-#         return email
+        # Crea el usuario en Django
+        user = User.objects.create_user(username=username, password=contrasena)
+        user.user_type = tipo_cuenta
+        user.save()
+        if tipo_cuenta == 1:
+            group = Group.objects.get(name='admin')
+            user.groups.add(group)
+        elif tipo_cuenta == 2:
+            group = Group.objects.get(name='cliente')
+            user.groups.add(group)
+            print("cliente creado")
 
-class CustomSignUpForm(forms.Form):
-    email = forms.EmailField()
-    name = forms.CharField()
-    last_name = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
-    tipo_cuenta = forms.ChoiceField(choices=[('admin', 'Administrador'), ('client', 'Cliente')])
-
-    def clean_password(self):
-        return self.cleaned_data.get('password')
+        return True
+    else:
+        return False
