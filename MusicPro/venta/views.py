@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 from django.http import HttpResponse
@@ -7,6 +8,8 @@ from .models import *
 from django.urls import reverse
 from django.http import JsonResponse
 import json
+from transbank.error.transbank_error import TransbankError
+from transbank.webpay.webpay_plus.transaction import Transaction
 
 # Create your views here.
 
@@ -98,6 +101,9 @@ def eliminar_producto(request):
     return render(request, 'venta/productos.html')
 
 def carrito(request):
+    # items = None
+    # carrito = None
+    # total = None
     if request.user.is_authenticated:
         user = request.user
         carrito, created = Carrito.objects.get_or_create(usuario=user)
@@ -108,8 +114,47 @@ def carrito(request):
             total =total + (i.precio * i.cantidad)
             print(total)
 
-    data = {'items': items, 'carrito': carrito, 'total': total,}
-    return render(request, 'venta/carrito.html', data)
+        print("Webpay Plus Transaction.create")
+        buy_order = str(random.randrange(1000000, 99999999))
+        session_id = str(random.randrange(1000000, 99999999))
+        amount = total
+        return_url = request.build_absolute_uri('/webpay-plus/commit')
+
+        create_request = {
+            "buy_order": buy_order,
+            "session_id": session_id,
+            "amount": amount,
+            "return_url": return_url
+        }
+
+        response = (Transaction()).create(buy_order, session_id, amount, return_url)
+
+        print(response['token'])
+        print(response['url'])
+
+        # tarjeta de prueba 	4051 8856 0044 6623
+        
+        data = {'items': items, 'carrito': carrito, 'total': total, 'token_ws': response['token'], 'url': response['url']}
+        return render(request, 'venta/carrito.html', data)
+
+def webpay_plus_commit(request):
+    token_ws = request.GET.get('token_ws')
+    print(token_ws)
+    print("commit for token_ws: {}".format(token))
+
+    response = (Transaction()).commit(token=token_ws)
+    print("response: {}".format(response))
+
+    return render(request, 'venta/exito.html', {'token': token, 'response': response})
+
+def retorno_webpay(request):
+    token_ws = request.POST.get('token_ws')
+
+    transaction = webpay.Transaction.status(token_ws)
+    if transaction.status == 'AUTHORIZED':
+        return render(request, 'webpay/exito.html')
+    else:
+        return render(request, 'webpay/error.html')
 
 def stock_view(request, content):
     bodegas = get_bodegas()
@@ -134,7 +179,6 @@ def stock_view(request, content):
         if response.status_code == 200:
             return redirect('anadir_producto')
         else:
-            # manejar errores
             print('esta', cantidad)
             print(id_producto)
             print('bodega',bodega)
@@ -180,3 +224,5 @@ def update_carrito(request):
     if itemCarrito.cantidad <= 0:
         itemCarrito.delete()
     return JsonResponse('Producto añadido', safe=False)
+
+

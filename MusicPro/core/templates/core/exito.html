@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Catalogo
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% if response.status == 'FAILED' %}
+
+<h4 class="mensaje-wp">Pago fallido</h4>
+
+{% else %}
+<h4 class="mensaje-wp">Pago exitoso</h4>
+  <table class="tabla-wp">
+    <tr>
+      <td>Orden de compra:</td>
+      <td>{{ response.buy_order }}</td>
+    </tr>
+    <tr>
+      <td>Tarjeta:</td>
+      <td>************{{ response.card_detail.card_number }}</td>
+    </tr>
+    <tr>
+      <td>Monto:</td>
+      <td>{{ response.amount }}</td>
+    </tr>
+  </table>
+{% endif %}
+
+{% endblock %}

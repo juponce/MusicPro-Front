@@ -2,6 +2,7 @@
 {% endblock %} {% block content %}
 <h2>Carrito de compras</h2>
 <div class="container">
+    <form action="">
     <table class="table">
         <thead>
             <tr>
@@ -52,6 +53,7 @@
             </tfoot>
         </tbody>
     </table>
+</form>
     <div class="d-flex justify-content-between">
         <a href="{% url 'catalogo' %}">
         <button type="button" class="btn btn-primary">
@@ -59,7 +61,10 @@
         </button>
     </a>
 
-        <a href="{% url 'carrito' %}"><button type="button" class="btn btn btn-primary">Comprar</button></a>
+    <form method="POST" action="{{ url }}">
+        <input type="hidden" name="token_ws" value="{{ token_ws }}" />
+        <input type="submit" value="Ir a pagar" class="btn btn btn-primary"/>
+      </form>
     </div>
 
 </div>
