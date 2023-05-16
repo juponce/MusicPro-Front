@@ -1,9 +1,10 @@
+# fixer api key RD7kyNO2uT7LbTTTXOEy8FEW90oVnhZt
+
 import requests
 import random
 from django.shortcuts import render
 from django.http import HttpResponse
 from transbank.webpay.webpay_plus.transaction import Transaction
-from .models import *
 
 
 
@@ -92,30 +93,30 @@ def get_stocks(params={}):
 # transbank.webpay.webpay_plus.default_api_key = "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C"
 # transbank.webpay.webpay_plus.default_integration_type = IntegrationType.TEST
 
-def webpay_plus_create(request):
-    user = request.user
-    carrito, created = Carrito.objects.get_or_create(usuario=user)
-    items = carrito.itemcarrito_set.all()
-    total = 0
-    print(items)
-    for i in items:
-        total =total + (i.precio * i.cantidad)
-        print(total)
+# def webpay_plus_create(request):
+#     user = request.user
+#     carrito, created = Carrito.objects.get_or_create(usuario=user)
+#     items = carrito.itemcarrito_set.all()
+#     total = 0
+#     print(items)
+#     for i in items:
+#         total =total + (i.precio * i.cantidad)
+#         print(total)
 
-    print("Webpay Plus Transaction.create")
-    buy_order = str(random.randrange(1000000, 99999999))
-    session_id = str(random.randrange(1000000, 99999999))
-    amount = total
-    return_url = request.build_absolute_uri('/webpay-plus/commit')
+#     print("Webpay Plus Transaction.create")
+#     buy_order = str(random.randrange(1000000, 99999999))
+#     session_id = str(random.randrange(1000000, 99999999))
+#     amount = total
+#     return_url = request.build_absolute_uri('/webpay-plus/commit')
 
-    create_request = {
-        "buy_order": buy_order,
-        "session_id": session_id,
-        "amount": amount,
-        "return_url": return_url
-    }
+#     create_request = {
+#         "buy_order": buy_order,
+#         "session_id": session_id,
+#         "amount": amount,
+#         "return_url": return_url
+#     }
 
-    response = (Transaction()).create(buy_order, session_id, amount, return_url)
+#     response = (Transaction()).create(buy_order, session_id, amount, return_url)
 
     print(response)
 
@@ -132,3 +133,37 @@ def webpay_plus_create(request):
 
 # tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, IntegrationType.TEST))
 # resp = tx.create(buy_order, session_id, amount, return_url)
+
+def usd_convert(monto):
+    url = f"https://api.apilayer.com/fixer/convert?to=usd&from=clp&amount={monto}"
+
+    payload = {}
+    headers= {
+    "apikey": "RD7kyNO2uT7LbTTTXOEy8FEW90oVnhZt"
+    }
+
+    response = requests.request("GET", url, headers=headers, data = payload)
+
+    status_code = response.status_code
+    json_result = response.json()
+    result = json_result['result']
+    print("me llamaste")
+    print(result)
+    return result
+
+def clp_convert(monto):
+    url = f"https://api.apilayer.com/fixer/convert?to=clp&from=usd&amount={monto}"
+
+    payload = {}
+    headers= {
+    "apikey": "RD7kyNO2uT7LbTTTXOEy8FEW90oVnhZt"
+    }
+
+    response = requests.request("GET", url, headers=headers, data = payload)
+
+    status_code = response.status_code
+    json_result = response.json()
+    result = json_result['result']
+    print("me llamaste")
+    print(result)
+    return result

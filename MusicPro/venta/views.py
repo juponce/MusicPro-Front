@@ -105,6 +105,7 @@ def carrito(request):
     # carrito = None
     # total = None
     if request.user.is_authenticated:
+        
         user = request.user
         carrito, created = Carrito.objects.get_or_create(usuario=user)
         items = carrito.itemcarrito_set.all()
@@ -113,6 +114,8 @@ def carrito(request):
         for i in items:
             total =total + (i.precio * i.cantidad)
             print(total)
+
+        valor_dolares = usd_convert(1000)
 
         print("Webpay Plus Transaction.create")
         buy_order = str(random.randrange(1000000, 99999999))
