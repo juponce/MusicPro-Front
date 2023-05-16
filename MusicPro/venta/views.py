@@ -102,8 +102,13 @@ def carrito(request):
         user = request.user
         carrito, created = Carrito.objects.get_or_create(usuario=user)
         items = carrito.itemcarrito_set.all()
+        total = 0
+        print(items)
+        for i in items:
+            total =total + (i.precio * i.cantidad)
+            print(total)
 
-    data = {'items': items, 'carrito': carrito}
+    data = {'items': items, 'carrito': carrito, 'total': total,}
     return render(request, 'venta/carrito.html', data)
 
 def stock_view(request, content):
@@ -136,34 +141,6 @@ def stock_view(request, content):
             print(response.status_code)
     return render(request, 'venta/stock.html', {'product': product, 'bodegas': bodegas })
 
-# def update_carrito(request):
-#     user = request.user
-#     carrito, created = Carrito.objects.get_or_create(usuario=user)
-#     if request.method == 'POST':
-#         product_id = request.POST.get('product_id')
-#         action = request.POST.get('action')
-
-#         print(product_id)
-#         print(action)
-#         # Realiza la lógica para incrementar la cantidad del registro ItemCarrito según el product_id y action
-
-#         # Actualiza la cantidad en el registro
-#         item = ItemCarrito.objects.get(id_producto=product_id, carrito=carrito)
-#         if action == 'add':
-#             item.cantidad += 1
-#         elif action == 'remove':
-#             item.cantidad -= 1
-
-#         item.save()
-
-#         # Devuelve la nueva cantidad en la respuesta JSON
-#         response_data = {
-#             'cantidad': item.cantidad
-#         }
-
-#         return JsonResponse(response_data)
-
-#     return JsonResponse({'error': 'Invalid request'})
 
 def update_carrito(request):
     stock = get_stocks()
