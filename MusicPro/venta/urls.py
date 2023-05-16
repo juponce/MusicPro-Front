@@ -9,4 +9,6 @@ urlpatterns = [
     path('modificar_productos', modificar_productos, name='modificar_productos'),
     path('productos/eliminar/', eliminar_producto, name='eliminar_producto'),
     path('update_carrito/', update_carrito, name='update_carrito'),
+    path('webpay/exito/', webpay_plus_create, name='webpay_plus_create'),
+    path('webpay-plus/commit/', webpay_plus_commit, name='webpay_plus_commit'),
 ]

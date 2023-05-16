@@ -89,3 +89,16 @@ footer {
 .product-card:first-child {
     padding-left: 0;
 }
+
+.mensaje-wp {
+    font-size: 24px;
+  }
+  
+  .tabla-wp {
+    border-collapse: collapse;
+  }
+  
+  .tabla-wp td {
+    border: 1px solid black;
+    padding: 5px;
+  }
