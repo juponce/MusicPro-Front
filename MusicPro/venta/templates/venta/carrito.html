@@ -47,7 +47,8 @@
             <tfoot>
                 <tr>
                     <td>Total:</td>
-                    <td>${{ total }}</td>
+                    <td>${{ total }}CLP</td>
+                    <td>${{ dolar }}USD</td>
                 </tr>
                 
             </tfoot>
@@ -60,11 +61,12 @@
             <i class="fa-solid fa-arrow-left"></i> Volver
         </button>
     </a>
-
+    {% if total is not 0 %}
     <form method="POST" action="{{ url }}">
         <input type="hidden" name="token_ws" value="{{ token_ws }}" />
         <input type="submit" value="Ir a pagar" class="btn btn btn-primary"/>
       </form>
+    {% endif %}
     </div>
 
 </div>

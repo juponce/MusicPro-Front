@@ -115,7 +115,7 @@ def carrito(request):
             total =total + (i.precio * i.cantidad)
             print(total)
 
-        valor_dolares = usd_convert(1000)
+        # valor_dolares = usd_convert(1000)
 
         print("Webpay Plus Transaction.create")
         buy_order = str(random.randrange(1000000, 99999999))
@@ -129,15 +129,34 @@ def carrito(request):
             "amount": amount,
             "return_url": return_url
         }
+        
+        if amount != 0:
+            valor_dolares = round(usd_convert(total), 2)
+            response = (Transaction()).create(buy_order, session_id, amount, return_url)
 
-        response = (Transaction()).create(buy_order, session_id, amount, return_url)
-
-        print(response['token'])
-        print(response['url'])
+            print(response['token'])
+            print(response['url'])
 
         # tarjeta de prueba 	4051 8856 0044 6623
         
-        data = {'items': items, 'carrito': carrito, 'total': total, 'token_ws': response['token'], 'url': response['url']}
+            data = {
+                'items': items,
+                'carrito': carrito,
+                'total': total,
+                'token_ws': response['token'],
+                'url': response['url'],
+                'dolar': valor_dolares,
+                }
+            
+            return render(request, 'venta/carrito.html', data)
+        
+        data = {
+            'items': items,
+            'carrito': carrito,
+            'total': total,
+            'dolar': 0,
+            }
+
         return render(request, 'venta/carrito.html', data)
 
 def webpay_plus_commit(request):
