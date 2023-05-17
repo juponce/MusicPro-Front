@@ -1,46 +1,74 @@
-{% extends 'core/base.html' %}
-{% load static %}
-{% block title %}Iniciar sesión{% endblock %}
-{% block content %}
+{% extends 'core/base.html' %} {% load static %} {% block title %}Iniciar
+sesión{% endblock %} {% block content %}
 <main class="inicio-sesion-margen">
-    <div class="container">
+  <div class="container">
     <div class="row justify-content-center">
-        <!--Inicio Formulario-->
-        <div class="col-md-5 my-5">
+      <!--Inicio Formulario-->
+      <div class="col-md-5 my-5">
         <div class="contenedorFormularioInicio">
-                <form class="d-flex flex-column" action="" method="POST"> {% csrf_token %}
-                    <h2 class="tituloForm2 h1">Iniciar Sesion</h2>            
-
-                <!--Nombre Usuario-->
-                <div class="form3">
-                <label for="usuario">Correo</label>
-                <br>
-                <input type="email" id="id_username" name="email" class="form4" autofocus required>
+          <form class="d-flex flex-column" action="" method="POST">
+            {% csrf_token %}
+            <div class="login-box">
+                <div class="card card-outline card-primary">
+                    <div class="card-header text-center">
+                    <a href="../../index2.html" class="h1"><b>Music Pro</b></a>
                 </div>
+                <div class="card-body">
+                    <h2>Iniciar Sesion</h2>
+                    <div class="input-group mb-3">
+                        <input type="email" id="id_username" name="email" class="form-control" placeholder="Correo Electronico" autofocus required/>
+                        <div class="input-group-append">
+                            <div div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input
+                      type="password"
+                      id="id_password"
+                      name="password"
+                      class="form-control"
+                      placeholder="Contraseña"
+                      required
+                    />
 
-                <!--Contrasena-->
-                <div class="form3">
-                <label for="usuario">Contraseña</label>
-                <br>
-                <input type="password" id="id_password" name="password" class="form4" required>
-                </div>
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="icheck-primary">
+                        <input type="checkbox" id="remember" />
+                        <label for="remember"> Recordarme </label>
+                      </div>
+                    </div>
 
-                <div class="contCheck">
-                    <p> <input type="checkbox"> Recordarme</p>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary btn-block">
+                        Iniciar Sesion
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <button type="submit" class="button2">Iniciar Sesion</button>
-                {% if form.non_field_errors %}
-                    <p class="error">Usuario o contraña incorrectos, vuelva a intentarlo</p>
-                {% endif %}
-                {% if 'register' in request.GET %}
-                    <p class="exito">Usuario registrado correctamente</p>
-                {% endif %}
-                </form>
-                <!--Fin Formulario-->
+              </div>
+            </div>
+            {% if form.non_field_errors %}
+            <p class="error">
+              Usuario o contraña incorrectos, vuelva a intentarlo
+            </p>
+            {% endif %} {% if 'register' in request.GET %}
+            <p class="exito">Usuario registrado correctamente</p>
+            {% endif %}
+          </form>
+          <!--Fin Formulario-->
         </div>
-        </div>
+      </div>
     </div>
-</div>
+  </div>
 </main>
 
 {% endblock %}
