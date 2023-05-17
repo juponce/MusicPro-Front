@@ -149,7 +149,10 @@ def usd_convert(monto):
     result = json_result['result']
     print("me llamaste")
     print(result)
+    print(json_result)
     return result
+
+
 
 def clp_convert(monto):
     url = f"https://api.apilayer.com/fixer/convert?to=clp&from=usd&amount={monto}"

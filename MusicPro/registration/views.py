@@ -66,6 +66,7 @@ def login_view(request):
             messages.success(request, 'Usuario creado correctamente.')
             user = authenticate(username=correo, password=contrasena)
             login(request, user)
+            
             return redirect('home')
         else:
             messages.error(request, 'Credenciales inválidas.')

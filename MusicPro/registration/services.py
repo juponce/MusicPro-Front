@@ -40,4 +40,22 @@ def obtener_tipo_cuenta(correo):
     else:
         return None
 
-tipo_cuenta = obtener_tipo_cuenta('cliente@cliente.com')
+# tipo_cuenta = obtener_tipo_cuenta('cliente@cliente.com')
+
+# def obtener_carrito(correo):
+#     url_carrito = f'http://home.softsolutions.cl:8080/carrito/{correo}'
+#     response = requests.get(url_carrito)
+
+#     if response.status_code == 200:
+#         carrito_json = response.json()
+#         tipo_cuenta = carrito_json['id_carrito']
+#         url_detalle = 'http://home.softsolutions.cl:8080/carritosDetalle'
+
+#         response_detalle = requests.get(url_detalle)
+
+#         if response.status_code == 200:
+#             print(response_detalle)
+#     else:
+#         return None
+
+    
