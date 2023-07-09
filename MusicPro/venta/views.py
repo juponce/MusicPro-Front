@@ -62,9 +62,9 @@ def anadir_producto(request):
 
 
         if response.status_code == 200:
-            id_producto = response.text
-
-            return redirect('stock', content = id_producto)
+            id_producto = response.json()
+            print(id_producto["id_producto"])
+            return redirect('stock', content = id_producto["id_producto"])
         else:
             # manejar errores
             print(response.status_code)
@@ -247,4 +247,41 @@ def update_carrito(request):
         itemCarrito.delete()
     return JsonResponse('Producto añadido', safe=False)
 
+def editar_producto(request, producto_id):
+    producto = get_product_by_id(producto_id)
+    producto_editable = producto[0]
+    print(producto_editable['nombre'])
+    id_str = str(producto_id)
 
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        precio = request.POST.get('precio')
+        imagen = request.POST.get('imagen')
+
+        url = 'http://home.softsolutions.cl:8080/producto/' + id_str
+        data = {
+            'nombre': nombre,
+            'descripcion': descripcion,
+            'precio': precio,
+            'imagen': imagen,
+            'cantidad': 3,
+        }
+
+        print(data)
+
+        response = requests.put(url, data=data)
+
+        if response.status_code == 200:
+            return redirect('stock', content = producto_id)
+        else:
+            # manejar errores
+            print(response.status_code)
+            print(response.content)
+    
+
+    context = {
+        'producto': producto_editable
+    }
+    
+    return render(request, 'venta/anadir_producto.html', context)

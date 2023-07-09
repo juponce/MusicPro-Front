@@ -12,6 +12,31 @@ Producto
         <!-- Inicio Formulario -->
         <div class="col-md-5">
         <div class="contenedorFormulario">
+            {% if "actualizar-producto" in request.path %}
+            <form class="py-4 px-4 mb-3 d-flex flex-column justify-content-center align-items-center" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_nombreProducto">Nombre producto:</label>
+                    <input type="text" name="nombre" id="id_nombreProducto" value="{{ producto.nombre }}">
+                </div>
+                <div class="mb-3">
+                    <label for="id_nombre">Descripción:</label>
+                    <textarea name="descripcion" id="" cols="30" rows="10">{{ producto.descripcion}}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="id_apellido">Precio:</label>
+                    <input type="text" name="precio" id="id_apellido" value="{{ producto.precio }}">
+                </div>
+                <div class="mb-3">
+                    <label for="id_contrasena">Imagen:</label>
+                    <input type="text" name="imagen" id="id_contrasena" value="{{ producto.imagen }}">
+                </div>
+                <button id="modal-button" type="submit">Actualizar</button>
+            </form>
+
+            {% else %}
+
+
             <form class="py-4 px-4 mb-3 d-flex flex-column justify-content-center align-items-center" method="post">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -32,6 +57,7 @@ Producto
                 </div>
                 <button id="modal-button" type="submit">Añadir</button>
             </form>
+            {% endif %}
 
         <!-- Fin Formulario -->
     </div>

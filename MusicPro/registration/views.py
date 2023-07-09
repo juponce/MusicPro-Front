@@ -27,7 +27,7 @@ def signup_view(request):
         response = requests.post(url, data=data)
 
         if response.status_code == 200:
-            return redirect('signup')
+            return redirect('signin')
         else:
             # manejar errores
             pass
