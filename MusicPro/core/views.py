@@ -41,8 +41,11 @@ def webpay_plus_commit(request):
 
 
         response_venta = requests.post(url_venta, data=data_venta)
-
-        venta_id = int(response_venta.text)
+        venta_id = response_venta.json()
+        print(venta_id)
+        print(type(venta_id))
+        print(venta_id["idVenta"])
+        print(type(venta_id["idVenta"]))
 
         if response_venta.status_code == 200:
 
@@ -50,7 +53,7 @@ def webpay_plus_commit(request):
                 data_detalle = {
                 'cantidad': i.cantidad,
                 'id_producto': i.id_producto,
-                'id_venta': venta_id,
+                'id_venta': venta_id["idVenta"],
                 }
                 response_detalle = requests.post(url_detalle, data=data_detalle)
                 if response_detalle.status_code == 200:

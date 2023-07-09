@@ -25,8 +25,9 @@ def get_product(params={}):
     return ''
 
 def get_product_by_id(id):
-    response = generate_request('http://home.softsolutions.cl:8080/producto/'+ id)
-    print('http://home.softsolutions.cl:8080/producto/'+ id)
+    id_str = str(id)
+    response = generate_request('http://home.softsolutions.cl:8080/producto/'+ id_str)
+    print('Estamos usando esta url: http://home.softsolutions.cl:8080/producto/'+ id_str)
     if response:
         products = response
         if products:

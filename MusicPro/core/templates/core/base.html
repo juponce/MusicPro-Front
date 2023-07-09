@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}{% endblock %}</title>
         {% load static %}
+        {% load custom_tags %}
         <!-- Bootstrap -->
         <link href="{% static 'core/css/bootstrap.min.css' %}" rel="stylesheet">
 
@@ -87,7 +88,7 @@
                                     {% endif %}
                                 </ul>
                                 {% if user.is_authenticated %}
-                                {% if user.is_superuser %}
+                                {% if user.is_authenticated and user|is_admin %}
                                 <li class="nav-item dropdown">
                                     <a
                                         class="nav-link dropdown-toggle"
