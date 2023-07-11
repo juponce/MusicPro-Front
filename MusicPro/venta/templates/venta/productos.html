@@ -15,6 +15,7 @@ Catalogo
       <div class="card-body">
         <h5 class="card-title">{{ i.nombre }}</h5>
         <p class="card-text">${{ i.precio }}</p>
+        <p class="card-text descripcion">{{ i.descripcion }}</p>
         <a href="{% url 'actualizar-producto' i.id_producto %}" class="btn btn-primary">Modificar</a>
         <form method="POST">
           {% csrf_token %}

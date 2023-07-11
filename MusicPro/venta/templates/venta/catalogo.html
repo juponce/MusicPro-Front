@@ -15,6 +15,7 @@ Catalogo
       <div class="card-body">
         <h5 class="card-title">{{ i.nombre }}</h5>
         <p class="card-text">${{ i.precio }}</p>
+        <p class="card-text descripcion">{{ i.descripcion }}</p>
         <form method="POST">
           {% csrf_token %}
           <input type="hidden" name="product_id" value="{{ i.id_producto }}">

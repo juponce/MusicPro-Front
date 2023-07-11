@@ -102,3 +102,10 @@ footer {
     border: 1px solid black;
     padding: 5px;
   }
+
+.descripcion {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}

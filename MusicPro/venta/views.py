@@ -181,6 +181,7 @@ def retorno_webpay(request):
 def stock_view(request, content):
     bodegas = get_bodegas()
     product = get_product_by_id(content)
+    stocks = get_stocks()
     if request.method == 'POST':
         cantidad = request.POST.get('stock')
         id_producto = int(content)
@@ -189,12 +190,26 @@ def stock_view(request, content):
         print(id_producto)
         print(bodega)
 
+
         url = 'http://home.softsolutions.cl:8080/stock'
         data = {
             'cantidad': cantidad,
             'id_producto': id_producto,
             'id_bodega': bodega,           
         }
+
+        
+        for i in stocks:
+            if i['id_producto'] == id_producto:
+                url = url + '/' + str(i['id_stock'])
+                response = requests.put(url, data)
+                if response.status_code == 200:
+                    return redirect('anadir_producto')
+                else:
+                    print('esta', cantidad)
+                    print(id_producto)
+                    print('bodega',bodega)
+                    print(response.status_code)
 
         response = requests.post(url, data=data)
 
@@ -310,7 +325,6 @@ def detalle_view(request, detalle_id):
 
     for i in detalle:
         print(i)
-
         if i['id_venta'] == detalle_id:
             for n in product:
                 print(n)
