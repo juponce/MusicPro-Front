@@ -285,3 +285,44 @@ def editar_producto(request, producto_id):
     }
     
     return render(request, 'venta/anadir_producto.html', context)
+
+def historial_view(request):
+    template_name = "venta/historial.html"
+    title = 'Historial'
+    ventas = get_ventas()
+    ventasUsuario = []
+    email = request.user.username
+
+    for i in ventas:
+        if i['correo'] == email:
+            ventasUsuario.append(i)
+
+    print(ventasUsuario)
+    
+    return render(request, template_name, {'title': title, 'ventasUsuario': ventasUsuario})
+
+def detalle_view(request, detalle_id):
+    template_name = "venta/detalle.html"
+    title = 'Detalle'
+    detalle = get_detalles()
+    product = get_product()
+    detalleVenta = []
+
+    for i in detalle:
+        print(i)
+
+        if i['id_venta'] == detalle_id:
+            for n in product:
+                print(n)
+                if n['id_producto'] == i['id_producto']:
+                    detalleVenta.append(n)
+
+    print(detalleVenta)
+
+    # for i in ventas:
+    #     if i['correo'] == email:
+    #         ventasUsuario.append(i)
+
+    # print(ventasUsuario)
+    
+    return render(request, template_name, {'title': title, 'detalleVenta': detalleVenta})

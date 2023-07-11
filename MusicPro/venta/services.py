@@ -84,6 +84,26 @@ def get_stocks(params={}):
     return ''
 
 
+def get_ventas(params={}):
+    response = generate_request('http://home.softsolutions.cl:8080/ventas', params)
+    if response:
+        ventas = response
+        if ventas:
+            venta = ventas
+            return venta
+
+    return ''
+
+def get_detalles(params={}):
+    response = generate_request('http://home.softsolutions.cl:8080/ventasdetalles', params)
+    if response:
+        detalles = response
+        if detalles:
+            detalle = detalles
+            return detalle
+
+    return ''
+
 # Host: hhttps://webpay3gint.transbank.cl/
 
 # tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, IntegrationType.TEST))

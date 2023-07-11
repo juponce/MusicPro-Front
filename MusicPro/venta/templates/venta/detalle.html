@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Historial
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="container-fluid d-flex flex-wrap">
+{% for i in detalleVenta %}
+
+<div class="card w-75">
+    <div class="card-body">
+        <h5 class="card-title">Nombre producto: {{ i.nombre }}</h5>
+        <p class="card-text">Precio: ${{ i.precio }}</p>
+    </div>
+</div>
+
+{% endfor %}
+</div>
+
+{% endblock %}
