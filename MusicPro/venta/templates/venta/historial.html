@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Historial
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="container-fluid d-flex flex-wrap">
+{% for i in ventasUsuario %}
+
+<div class="card w-75">
+    <div class="card-body">
+        <h5 class="card-title">Orden de compra: {{ i.orden_compra }}</h5>
+        <p class="card-text">Fecha: {{ i.fecha_venta }}</p>
+        <p class="card-text">Total: ${{ i.total_venta }}</p>
+        <a href="{% url 'detalle_view' detalle_id=i.id_venta %}" class="btn btn-primary">Detalle</a>
+    </div>
+</div>
+
+{% endfor %}
+</div>
+
+{% endblock %}
